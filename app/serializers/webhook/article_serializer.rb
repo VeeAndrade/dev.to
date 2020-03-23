@@ -3,6 +3,9 @@ module Webhook
     include FastJsonapi::ObjectSerializer
 
     set_type :article
+    # formats JSON for only select article attributes
+    # add page_views_count to listed attributes?
+    # cached_tag_list_array is not an article attribute – remove?
     attributes :title, :description, :readable_publish_date, :cached_tag_list, :cached_tag_list_array,
                :slug, :path, :url, :comments_count, :positive_reactions_count, :body_markdown
 

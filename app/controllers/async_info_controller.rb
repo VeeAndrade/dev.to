@@ -37,6 +37,7 @@ class AsyncInfoController < ApplicationController
     render json: { version: Rails.env.production? ? shell_version : rand(1000) }.to_json
   end
 
+  # fetches key and values from cache are returned
   def user_data
     Rails.cache.fetch(user_cache_key, expires_in: 15.minutes) do
       {

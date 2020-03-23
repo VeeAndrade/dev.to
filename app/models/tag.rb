@@ -1,7 +1,7 @@
 class Tag < ActsAsTaggableOn::Tag
   attr_accessor :points
 
-  acts_as_followable
+  acts_as_followable # tag can be followed
   resourcify
 
   ALLOWED_CATEGORIES = %w[uncategorized language library tool site_mechanic location subcommunity].freeze
@@ -21,7 +21,7 @@ class Tag < ActsAsTaggableOn::Tag
   validates :category, inclusion: { in: ALLOWED_CATEGORIES }
 
   validate :validate_alias
-  validate :validate_name
+  validate :validate_name # tags have names
   before_validation :evaluate_markdown
   before_validation :pound_it
   before_save :calculate_hotness_score

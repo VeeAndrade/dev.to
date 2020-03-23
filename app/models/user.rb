@@ -13,7 +13,7 @@ class User < ApplicationRecord
   include Storext.model
 
   acts_as_followable
-  acts_as_follower
+  acts_as_follower # user can be a follower, following a tag, for example
 
   has_many :organization_memberships, dependent: :destroy
   has_many :organizations, through: :organization_memberships
@@ -299,6 +299,7 @@ class User < ApplicationRecord
     true
   end
 
+  # method returns user's cached followed tag names
   def cached_followed_tag_names
     cache_name = "user-#{id}-#{following_tags_count}-#{last_followed_at&.rfc3339}/followed_tag_names"
     Rails.cache.fetch(cache_name, expires_in: 24.hours) do

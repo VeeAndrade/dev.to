@@ -16,6 +16,7 @@ class UsersController < ApplicationController
     handle_settings_tab
   end
 
+  # updates user database record and provides user with flash notice
   # PATCH/PUT /users/:id.:format
   def update
     set_tabs(params["user"]["tab"])
@@ -33,7 +34,7 @@ class UsersController < ApplicationController
       follow_hiring_tag(@user)
       flash[:settings_notice] = notice
       @user.touch(:profile_updated_at)
-      redirect_to "/settings/#{@tab}"
+      redirect_to "/settings/#{@tab}" # redirects to current submenu
     else
       render :edit
     end
@@ -52,6 +53,7 @@ class UsersController < ApplicationController
     redirect_to "/settings/#{@tab}"
   end
 
+  # start by adding an update Daily Dev email settings method within controller and abstract later?
   def update_language_settings
     set_tabs("misc")
     @user.language_settings["preferred_languages"] = Languages::LIST.keys & params[:user][:preferred_languages].to_a
@@ -286,6 +288,7 @@ class UsersController < ApplicationController
     authorize @user
   end
 
+  # defines instance variables for tab types
   def set_tabs(current_tab = "profile")
     @tab_list = @user.settings_tab_list
     @tab = current_tab

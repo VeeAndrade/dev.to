@@ -12,6 +12,7 @@ class ArticleApiIndexService
     @per_page = params[:per_page]
   end
 
+  # returns list of articles based on provided query parameters
   def get
     if tag.present?
       tag_articles
@@ -56,6 +57,7 @@ class ArticleApiIndexService
     end
   end
 
+  # defines articles that contain requested tag
   def tag_articles
     articles = Article.published.cached_tagged_with(tag).includes(:user, :organization)
 
@@ -71,6 +73,7 @@ class ArticleApiIndexService
     articles.page(page).per(per_page || DEFAULT_PER_PAGE)
   end
 
+  # defines most popular articles in last `N` days
   def top_articles
     Article.published.includes(:user, :organization).
       where("published_at > ?", top.to_i.days.ago).

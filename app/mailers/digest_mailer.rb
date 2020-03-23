@@ -1,3 +1,4 @@
+# reference for Daily Dev
 class DigestMailer < ApplicationMailer
   default from: -> { "DEV Digest <#{SiteConfig.default_site_email}>" }
 

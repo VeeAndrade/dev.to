@@ -1,3 +1,4 @@
+# How a user keeps track of the tags, users, or articles they care about
 class Follow < ApplicationRecord
   extend ActsAsFollower::FollowerLib
   extend ActsAsFollower::FollowScopes
@@ -8,11 +9,13 @@ class Follow < ApplicationRecord
 
   scope :followable_user, ->(id) { where(followable_id: id, followable_type: "User") }
   scope :followable_organization, ->(id) { where(followable_id: id, followable_type: "Organization") }
+  # scoped query
   scope :followable_tag, ->(id) { where(followable_id: id, followable_type: "ActsAsTaggableOn::Tag") }
 
   scope :follower_user, ->(id) { where(follower_id: id, followable_type: "User") }
   scope :follower_organization, ->(id) { where(follower_id: id, followable_type: "Organization") }
   scope :follower_podcast, ->(id) { where(follower_id: id, followable_type: "Podcast") }
+  # scoped query
   scope :follower_tag, ->(id) { where(follower_id: id, followable_type: "ActsAsTaggableOn::Tag") }
 
   counter_culture :follower, column_name: proc { |follow|

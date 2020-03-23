@@ -5,7 +5,7 @@ class Article < ApplicationRecord
   include Storext.model
   include Reactable
 
-  acts_as_taggable_on :tags
+  acts_as_taggable_on :tags # implements tags in Article model
   resourcify
 
   attr_accessor :publish_under_org
@@ -28,12 +28,12 @@ class Article < ApplicationRecord
   has_many :notifications, as: :notifiable, inverse_of: :notifiable, dependent: :delete_all
   has_many :notification_subscriptions, as: :notifiable, inverse_of: :notifiable, dependent: :destroy
   has_many :rating_votes
-  has_many :page_views
+  has_many :page_views # ActiveRecord one-to-many association
 
   validates :slug, presence: { if: :published? }, format: /\A[0-9a-z\-_]*\z/,
                    uniqueness: { scope: :user_id }
-  validates :title, presence: true,
-                    length: { maximum: 128 }
+  validates :title, presence: true, # Article is invalid without title
+                    length: { maximum: 128 } # Article has 128 characters max
   validates :user_id, presence: true
   validates :feed_source_url, uniqueness: { allow_blank: true }
   validates :canonical_url,
@@ -47,8 +47,8 @@ class Article < ApplicationRecord
   validate :past_or_present_date
   validate :canonical_url_must_not_have_spaces
   validates :video_state, inclusion: { in: %w[PROGRESSING COMPLETED] }, allow_nil: true
-  validates :cached_tag_list, length: { maximum: 126 }
-  validates :main_image, url: { allow_blank: true, schemes: %w[https http] }
+  validates :cached_tag_list, length: { maximum: 126 } # Article has cached_tag_list
+  validates :main_image, url: { allow_blank: true, schemes: %w[https http] } # Article image url can be blank
   validates :main_image_background_hex_color, format: /\A#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})\z/
   validates :video, url: { allow_blank: true, schemes: %w[https http] }
   validates :video_source_url, url: { allow_blank: true, schemes: ["https"] }
@@ -278,6 +278,7 @@ class Article < ApplicationRecord
     end
   end
 
+  # formats Article description
   def processed_description
     text_portion = body_text.present? ? body_text[0..100].tr("\n", " ").strip.to_s : ""
     text_portion = text_portion.strip + "..." if body_text.size > 100
@@ -358,6 +359,7 @@ class Article < ApplicationRecord
     end
   end
 
+  # formats published at or crossposted at timestamp
   def published_timestamp
     return "" unless published
     return "" unless crossposted_at || published_at

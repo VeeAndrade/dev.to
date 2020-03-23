@@ -17,9 +17,12 @@
 - etc.
       " %>
     </div>
+    <%# clicking SUBMIT here redirects to `/settings`, whereas other SUBMITS on page merely refresh %>
     <%= f.submit "SUBMIT", class: "cta" %>
   </div>
 <% end %>
+
+<%# need to render newly created "daily_dev" partial; redirect to `/settings` or refresh; add flash success message %>
 
 <%= render "language_settings" %>
 

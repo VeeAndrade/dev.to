@@ -1,7 +1,7 @@
 class PageViewsController < ApplicationMetalController
   # ApplicationMetalController because we do not need all bells and whistles of ApplicationController, so should help performance.
   include ActionController::Head
-
+  # creates a new page view for an article
   def create
     page_view_create_params = if session_current_user_id
                                 page_view_params.merge(user_id: session_current_user_id)
@@ -16,6 +16,7 @@ class PageViewsController < ApplicationMetalController
     head :ok
   end
 
+  # updates an article's page view count column value
   def update
     if session_current_user_id
       page_view = PageView.order("created_at DESC").find_or_create_by(article_id: params[:id], user_id: session_current_user_id)

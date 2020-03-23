@@ -3,6 +3,7 @@
 # OR
 # EmailDigets.send_periodic_digest_email(Users.first(4))
 
+# reference for Daily Dev email
 class EmailDigest
   def self.send_periodic_digest_email(users = [])
     new(users).send_periodic_digest_email
@@ -12,6 +13,7 @@ class EmailDigest
     @users = users.empty? ? get_users : users
   end
 
+  # sends digest email
   def send_periodic_digest_email
     @users.find_each do |user|
       user_email_heuristic = EmailLogic.new(user).analyze

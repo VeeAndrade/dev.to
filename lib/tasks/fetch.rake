@@ -48,7 +48,8 @@ end
 task github_repo_fetch_all: :environment do
   GithubRepo.update_to_latest
 end
-
+# conditional send email digest task called by Heroku scheduler
+# will likely need a similar Daily Dev task
 task send_email_digest: :environment do
   if Time.current.wday >= 3
     EmailDigest.send_periodic_digest_email

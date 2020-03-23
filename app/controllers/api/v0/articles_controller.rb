@@ -10,7 +10,7 @@ module Api
       before_action :set_cache_control_headers, only: %i[index show]
 
       skip_before_action :verify_authenticity_token, only: %i[create update]
-
+      # lists all articles
       def index
         @articles = ArticleApiIndexService.new(params).get
         @articles = @articles.select(INDEX_ATTRIBUTES_FOR_SERIALIZATION).decorate
@@ -70,7 +70,7 @@ module Api
           per(num).
           decorate
       end
-
+      # defines constant for all article attributes to be serialized
       INDEX_ATTRIBUTES_FOR_SERIALIZATION = %i[
         id user_id organization_id collection_id
         title description main_image published_at crossposted_at social_image

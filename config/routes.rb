@@ -98,7 +98,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: "json" } do
     scope module: :v0,
           constraints: ApiConstraints.new(version: 0, default: true) do
-      resources :articles, only: %i[index show create update] do
+      resources :articles, only: %i[index show create update] do # published articles route
         collection do
           get "me(/:status)", to: "articles#me", as: :me, constraints: { status: /published|unpublished|all/ }
         end
@@ -255,6 +255,7 @@ Rails.application.routes.draw do
 
   get "/future", to: redirect("devteam/the-future-of-dev-160n")
 
+  # add put/patch route for user Daily Dev subscription?
   # Settings
   post "users/update_language_settings" => "users#update_language_settings"
   post "users/update_twitch_username" => "users#update_twitch_username"
@@ -324,6 +325,7 @@ Rails.application.routes.draw do
     end
   end
 
+  # settings submenu routes to users controller, edit action
   get "/settings/(:tab)" => "users#edit", :as => :user_settings
   get "/settings/:tab/:org_id" => "users#edit"
   get "/signout_confirm" => "users#signout_confirm"
@@ -331,7 +333,7 @@ Rails.application.routes.draw do
   get "/dashboard/pro" => "dashboards#pro"
   get "dashboard/pro/org/:org_id" => "dashboards#pro"
   get "dashboard/following" => "dashboards#following_tags"
-  get "dashboard/following_tags" => "dashboards#following_tags"
+  get "dashboard/following_tags" => "dashboards#following_tags" # shows all tags user is following
   get "dashboard/following_users" => "dashboards#following_users"
   get "dashboard/following_organizations" => "dashboards#following_organizations"
   get "dashboard/following_podcasts" => "dashboards#following_podcasts"

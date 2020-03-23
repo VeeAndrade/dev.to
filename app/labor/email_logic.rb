@@ -1,3 +1,4 @@
+# add to this file for Daily Dev email?
 class EmailLogic
   attr_reader :open_percentage, :last_email_sent_at, :days_until_next_email, :articles_to_send
 
@@ -19,6 +20,7 @@ class EmailLogic
     self
   end
 
+  # evaluates whther user should receive email based on criteria
   def should_receive_email?
     @ready_to_receive_email
   end
@@ -96,6 +98,7 @@ class EmailLogic
     a_few_days_ago > @last_email_sent_at ? a_few_days_ago : @last_email_sent_at
   end
 
+  # checks whether user follows other users or tags
   def user_has_followings?
     following_users = @user.cached_following_users_ids
     following_tags = @user.cached_followed_tag_names

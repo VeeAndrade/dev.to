@@ -18,6 +18,7 @@ class UserDecorator < ApplicationDecorator
     },
   ].freeze
 
+  # returns server-side cached array of a user's followed tags, executing block in event of cache miss
   def cached_followed_tags
     Rails.cache.fetch("user-#{id}-#{updated_at}/followed_tags_11-30", expires_in: 20.hours) do
       follows = Follow.follower_tag(id).pluck(:followable_id, :points)
