@@ -11,14 +11,14 @@
     </h1>
     <h2 class='email-subtitle'>Here's an article we found for you based on your followed tags:</h2>
       <article class='email-article-body'>
-          <a href="https://dev.to<%= @article.path %>" class="dev-anchor-tag">
+          <a href="<%= @article.first.path %>" class="dev-anchor-tag">
             <div class='article-div'>
-              <h3 class='article-heading'><%= @article.title %></h3>
-              <p class='article-para-preview'><%= @article.description %></p>
-              <section class='image-section' style=' border-style: double 1px <%= @article.main_image_background_hex_color %>'>
-                <img src="<%= @article.main_image %>" alt="article img" class='article-image'>
+              <h3 class='article-heading'><%= @article.first.title %></h3>
+              <p class='article-para-preview'><%= @article.first.description %></p>
+              <section class='image-section' style=' border-style: double 1px <%= @article.first.main_image_background_hex_color %>'>
+                <img src="<%= @article.first.main_image %>" alt="article img" class='article-image'>
               </section>
-              <p class='article-readtime'><%= @article.reading_time %>min read</p>
+              <p class='article-readtime'><%= @article.first.reading_time %> min read</p>
             </div>
           </a>
       </article>
