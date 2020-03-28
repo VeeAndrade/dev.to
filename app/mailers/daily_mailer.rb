@@ -3,7 +3,7 @@ class DailyMailer < ApplicationMailer
 
   def daily_email(user, article)
     @user = user
-    @article = article
+    @article = article.first
     @unsubscribe = generate_unsubscribe_token(@user.id, :email_daily_dev)
     mail(to: @user.email, subject: generate_title)
   end
