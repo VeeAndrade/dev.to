@@ -3,10 +3,9 @@ class DailyMailer < ApplicationMailer
 
   def daily_email(user, article)
     @user = user
-    @article = article.first
+    @article = article
     @unsubscribe = generate_unsubscribe_token(@user.id, :email_daily_dev)
-    subject = generate_title
-    mail(to: @user.email, subject: subject)
+    mail(to: @user.email, subject: generate_title)
   end
 
   private
