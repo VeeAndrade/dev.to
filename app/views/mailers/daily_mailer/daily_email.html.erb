@@ -5,20 +5,22 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
       <%= stylesheet_link_tag "application" %>
   </head>
-  <body class='email-body'>
-    <h1 class='email-header'>
+  <body class='email-body' style="align-items: center; display: flex; flex-direction: column;">
+    <h1 class='email-header' style="background-image: linear-gradient(rgba(57, 57, 57, 0.288), rgba(57, 57, 57, 0.315)), url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80'); background-repeat: no-repeat; background-size: 100% 30rem; background-position: 30%; width: 100%; height: 12rem; font-family: 'Open Sans', sans-serif; font-size: 5rem; color: #66e2d5; display: flex; justify-content: center; align-items: center;">
       Daily DEV
     </h1>
-    <h2 class='email-subtitle'>Here's an article we found for you based on your followed tags:</h2>
-      <article class='email-article-body'>
-          <a href="https://dev.to<%= @article.path %>" class="dev-anchor-tag">
-            <div class='article-div'>
-              <h3 class='article-heading'><%= @article.title %></h3>
-              <p class='article-para-preview'><%= @article.description %></p>
-              <section class='image-section' style=' border-style: double 1px <%= @article.main_image_background_hex_color %>'>
-                <img src="<%= @article.main_image %>" alt="article img" class='article-image'>
+    <h2 class='email-subtitle' style="font-style: italic; font-weight: lighter; width: 100%; text-align: center; margin-left: 1%; color: rgb(87, 86, 87); font-family: 'Open Sans', sans-serif;">
+      Here's an article we found for you based on your followed tags:
+    </h2>
+      <article class='email-article-body' style="margin: 18px auto; font-family: 'Open Sans', sans-serif; display: flex; flex-direction: column; align-items: center; color: white;">
+          <a href="<%= @article.path %>" class="dev-anchor-tag" style="font-weight: bold; color: black; font-size: calc(0.93em + 0.2vw); text-decoration: none;">
+            <div class='article-div' style="height: 35rem; width: 40rem; display: flex; flex-direction: column; padding: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+              <h3 class='article-heading' style="text-align: center; font-family: 'Open Sans', sans-serif; font-weight: lighter;"><%= @article.title %></h3>
+              <p class='article-para-preview' style="font-weight: 400; text-align: center;"><%= @article.description %></p>
+              <section class='image-section' style='display: flex; justify-content: center; align-items: center; padding: 5px; margin-top: 5%; border-style: double; border-style: double 1px <%= @article.main_image_background_hex_color %>'>
+                <img src="<%= @article.main_image %>" alt="article img" class='article-image' style="max-width: 100%; height: auto;">
               </section>
-              <p class='article-readtime'><%= @article.reading_time %>min read</p>
+              <p style="color: rgba(103, 101, 106, 0.845); font-weight: lighter; font-size: 0.8em; text-align: end; margin-top: 5%;" class='article-readtime'><%= @article.reading_time %>min read</p>
             </div>
           </a>
       </article>
