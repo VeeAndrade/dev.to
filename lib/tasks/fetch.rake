@@ -57,6 +57,12 @@ task send_email_digest: :environment do
   end
 end
 
+task send_email_daily: :environment do
+  puts 'preparing to send Daily DEV emails'
+  EmailDaily.send_daily_dev_email
+  puts 'Daily DEV emails successfully sent'
+end
+
 task award_badges: :environment do
   BadgeRewarder.award_yearly_club_badges
   BadgeRewarder.award_beloved_comment_badges
