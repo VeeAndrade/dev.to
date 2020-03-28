@@ -2,81 +2,32 @@ require "rails_helper"
 
 RSpec.describe EmailDailyLogic, type: :labor do
   let(:user) { create(:user) }
+  let(:tag1) { create(:tag, name: "java") }
+  let(:tag2) { create(:tag, name: "ruby") }
 
-  describe "#analyze" do
-    context "when user is brand new with no-follow" do
-      it "returns 0.5 for open_percentage" do
-        author = create(:user)
-        user.follow(author)
-        create_list(:article, 3, user_id: author.id, positive_reactions_count: 20, score: 20)
-        h = described_class.new(user).analyze
-        expect(h.open_percentage).to eq(0.5)
-      end
+  describe "#article_to_send" do
+    context "when user follows no tags" do
+      it "provides a top article published in last 14 days" do
+        create(:article, published_at: 3.weeks.ago.utc, page_views_count: 8)
+        create(:article, published_at: 3.days.ago.utc, page_views_count: 2)
+        article3 = create(:article, published_at: 10.days.ago.utc, page_views_count: 5)
+        h = described_class.new(user)
 
-      it "provides top 3 articles" do
-        create_list(:article, 3, positive_reactions_count: 40, featured: true, score: 40)
-        h = described_class.new(user).analyze
-        expect(h.articles_to_send.length).to eq(3)
-      end
-
-      it "marks as not ready if there isn't at least 3 articles" do
-        create_list(:article, 2, positive_reactions_count: 40, score: 40)
-        h = described_class.new(user).analyze
-        expect(h.should_receive_email?).to eq(false)
-      end
-
-      it "marks as not ready if there isn't at least 3 email-digest-eligible articles" do
-        create_list(:article, 2, positive_reactions_count: 40, score: 40)
-        create_list(:article, 2, positive_reactions_count: 40, email_digest_eligible: false)
-        h = described_class.new(user).analyze
-        expect(h.should_receive_email?).to eq(false)
+        expect(h.article_to_send.id).to eq(article3.id)
       end
     end
 
-    context "when a user's open_percentage is low " do
-      before do
-        author = create(:user)
-        user.follow(author)
-        create_list(:article, 3, user_id: author.id, positive_reactions_count: 20, score: 20)
-        10.times do
-          Ahoy::Message.create(mailer: "DigestMailer#digest_email",
-                               user_id: user.id, sent_at: Time.current.utc)
-        end
-      end
+    context "when user follows at least one tag" do
+      before { [user.follow(tag1), user.follow(tag2)] }
 
-      it "will not send email when user shouldn't receive any" do
-        h = described_class.new(user).analyze
-        expect(h.should_receive_email?).to eq(false)
-      end
-    end
+      it "provides a top article published in last 14 days that matches one of the user's tags" do
+        create(:article, tags: tag1, published_at: 3.weeks.ago.utc, page_views_count: 5)
+        create(:article, tags: tag2, published_at: 3.days.ago.utc, page_views_count: 2)
+        article3 = create(:article, tags: tag1, published_at: 10.days.ago.utc, page_views_count: 4)
+        h = described_class.new(user)
 
-    context "when a user's open_percentage is high" do
-      before do
-        10.times do
-          Ahoy::Message.create(mailer: "DigestMailer#digest_email", user_id: user.id,
-                               sent_at: Time.current.utc, opened_at: Time.current.utc)
-          author = create(:user)
-          user.follow(author)
-          create_list(:article, 3, user_id: author.id, positive_reactions_count: 40, score: 40)
-        end
+        expect(h.article_to_send.id).to eq(article3.id)
       end
-
-      it "evaluates that user is ready to receive an email" do
-        Timecop.freeze(3.days.from_now) do
-          h = described_class.new(user).analyze
-          expect(h.should_receive_email?).to eq(true)
-        end
-      end
-    end
-  end
-
-  describe "#should_receive_email?" do
-    it "reflects @ready_to_receive_email" do
-      author = create(:user)
-      user.follow(author)
-      create_list(:article, 3, user_id: author.id, positive_reactions_count: 20, score: 20)
-      h = described_class.new(user).analyze
-      expect(h.should_receive_email?).to eq(true)
     end
   end
 end
