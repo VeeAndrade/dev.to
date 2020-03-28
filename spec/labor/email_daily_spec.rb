@@ -8,7 +8,7 @@ end
 
 RSpec.describe EmailDaily, type: :labor do
   let(:user) { create(:user, email_daily_dev: true) }
-  let(:author) { create(:user) }
+  let(:tag) { create(:tag, name: "java") }
   let(:mock_delegator) { instance_double("FakeDelegator") }
 
   before do
@@ -18,13 +18,13 @@ RSpec.describe EmailDaily, type: :labor do
   end
 
   describe "::send_daily_email" do
-    context "when there's article to be sent" do
-      before { user.follow(author) }
+    context "when a user follows a tag" do
+      before { user.follow(tag) }
 
-      it "send daily email when there's at least 3 hot articles" do
-        create_list(:article, 3, user_id: author.id, positive_reactions_count: 20, score: 20)
+      it "sends a daily email containing an article that has the same tag" do
+        article = create(:article, page_views_count: 1, tags: tag)
         described_class.send_daily_dev_email
-        expect(DailyMailer).to have_received(:daily_email).with(user, instance_of(Article))
+        expect(DailyMailer).to have_received(:daily_email).with(user, article)
       end
     end
   end
