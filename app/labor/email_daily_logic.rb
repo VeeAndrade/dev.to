@@ -17,13 +17,13 @@ class EmailDailyLogic
                   where("published_at > ?", fresh_date).
                   where.not(user: @user).
                   order("page_views_count DESC").
-                  first
+                  limit(1)
               else
                 Article.published.
                   where("published_at > ?", fresh_date).
                   where.not(user: @user).
                   order("page_views_count DESC").
-                  first
+                  limit(1)
               end
     article
   end
