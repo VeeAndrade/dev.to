@@ -20,6 +20,11 @@
               <section class='image-section' style='display: flex; justify-content: center; align-items: center; padding: 5px; margin-top: 5%; border-style: double; border-style: double 1px <%= @article.main_image_background_hex_color %>'>
                 <img src="<%= @article.main_image %>" alt="article img" class='article-image' style="max-width: 100%; height: auto;">
               </section>
+                <div class="featured-tags tags" style='text-align: end'>
+                  <% @article.cached_tag_list.split(", ").each do |tag| %>
+                    <a href="/t/<%= tag %>"><span class="tag">#<%= tag %></span></a>
+                  <% end %>
+                </div>
               <p style="color: rgba(103, 101, 106, 0.845); font-weight: lighter; font-size: 0.8em; text-align: end; margin-top: 5%;" class='article-readtime'><%= @article.reading_time %> min read</p>
             </div>
           </a>
