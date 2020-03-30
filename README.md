@@ -44,10 +44,6 @@
   </a>
 </p>
 
-Welcome to the [dev.to](https://dev.to) codebase. We are so excited to have you.
-With your help, we can build out DEV to be more stable and better serve our
-community.
-
 ## What is dev.to?
 
 [dev.to](https://dev.to) (or just DEV) is a platform where software developers
@@ -56,36 +52,38 @@ We value supportive and constructive dialogue in the pursuit of great code and
 career growth for all members. The ecosystem spans from beginner to advanced
 developers, and all are welcome to find their place within our community. ❤️
 
+Link to the [dev.to](https://dev.to) codebase [README](https://github.com/thepracticaldev/dev.to/blob/master/README.md). 
+
 ## Table of Contents
 
 - [What is dev.to?](#what-is-devto)
 - [Table of Contents](#table-of-contents)
-- [Contributing](#contributing)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation Documentation](#installation-documentation)
 - [Developer Documentation](#developer-documentation)
-- [Core team](#core-team)
+- [Extended Functionality](#extended-functionality)
+- [Images](#images)
+  - [Wireframes](#wireframes)
+  - [Screenshots](#screenshots)
+  - [Flowcharts](#flowcharts)
+  - [Entity Relationship Diagram](#entity-relationship-diagram)
+- [Presentation](#presentation)
+- [Contributors](#contributors)
 - [Vulnerability disclosure](#vulnerability-disclosure)
 - [License](#license)
-
-## Contributing
-
-We encourage you to contribute to dev.to! Please check out the
-[Contributing to dev.to guide](CONTRIBUTING.md) for guidelines about how to
-proceed.
 
 ## Getting Started
 
 This section provides a high-level quick start guide. If you're looking for the
 [installation guide](https://docs.dev.to/installation/), you'll want to refer to
-our complete [Developer Documentation](https://docs.dev.to).
+the complete [Developer Documentation](https://docs.dev.to).
 
-We run on a [Rails](https://rubyonrails.org/) backend, and we are currently
+The platform runs on a [Rails](https://rubyonrails.org/) backend, and is currently
 transitioning to a [Preact](https://preactjs.com/)-first frontend.
 
-A more complete overview of our stack is available in
-[our docs](https://docs.dev.to/technical-overview/).
+A more complete overview of the stack is available in the
+[dev.to docs](https://docs.dev.to/technical-overview/).
 
 ### Prerequisites
 
@@ -106,27 +104,59 @@ A more complete overview of our stack is available in
 
 ## Developer Documentation
 
-[Check out our dedicated docs page for more technical documentation](https://docs.dev.to).
+[Check out the dedicated docs page for more technical documentation](https://docs.dev.to).
 
-## Core team
+## Extended Functionality
 
-- [@benhalpern](https://dev.to/ben)
-- [@jessleenyc](https://dev.to/jess)
-- [@peterkimfrank](https://dev.to/peter)
-- [@maestromac](https://dev.to/maestromac)
-- [@zhao-andy](https://dev.to/andy)
-- [@lightalloy](https://dev.to/lightalloy)
-- [@rhymes](https://dev.to/rhymes)
-- [@jacobherrington](https://dev.to/jacobherrington)
-- [@mstruve](https://dev.to/molly_struve)
-- [@atsmith813](https://dev.to/atsmith813)
-- [@citizen428](https://dev.to/citizen428)
-- [@nickytonline](https://dev.to/nickytonline)
-- [@joshpuetz](http://dev.to/joshpuetz)
-- [@vaidehijoshi](https://dev.to/vaidehijoshi)
-- [@juliannatetreault](https://dev.to/juliannatetreault)
-- [@ridhwana](https://dev.to/ridhwana)
-- [@fdoxyz](https://dev.to/fdoxyz)
+### Daily Dev Email Feature Overview
+
+For this feature project, we help readers build a daily habit of reading a single article. When a registered user goes to their Settings page and clicks on the Notifications submenu, we've added a checkbox for that user to subscribe to receive a daily emailed article relevant to their tags. 
+
+When that option is checked, each day the user will receive an email from the app. We built out functionality to select a highly-read article (based on number of page views) matching a tag that the user follows that was posted in the last 14 days. Users subscribed to receive an email who are not following any tags are sent an article that matches all other article criteria.
+
+### Wireframes
+
+
+
+### Screenshots
+
+#### Sample Email
+<p align="center">
+  <img width="351" alt="Screen Shot 2020-03-27 at 8 54 22 PM" 
+src="https://user-images.githubusercontent.com/50811220/77950781-8fc7b400-72b8-11ea-8a40-6b44c7cc0bec.png">
+</p>
+
+### Flowcharts
+
+#### Feature Flow 
+<p align="center">
+  <img width="459" alt="feature flow" 
+src="https://user-images.githubusercontent.com/50811220/77949141-fe574280-72b5-11ea-8b2f-efe4ce508f89.png">
+</p>
+
+#### Data Flow 
+<p align="center">
+  <img width="459" alt="data flow" 
+src="https://user-images.githubusercontent.com/50811220/77951780-1d57d380-72ba-11ea-8a26-94a53c0bb689.png">
+</p>
+
+### Entity Relationship Diagram
+<p align="center">
+  <img width="1072" alt="ERD" 
+src="https://user-images.githubusercontent.com/50811220/77949317-44140b00-72b6-11ea-93b4-56ed45c69299.png">
+</p>
+
+## Presentation
+
+[Link to presentation](https://www.canva.com/design/DAD32ug--10/YvH7uiRfI9tM0kiQ1jkOyg/view?utm_content=DAD32ug--10&utm_campaign=designshare&utm_medium=link&utm_source=sharebutton), including a video demo of the added feature and additional context related to the project itself.
+
+## Contributors
+
+**Backend**  
+- [@freeheeling](https://github.com/freeheeling)  
+**Frontend**  
+- [@pJanks](https://github.com/pJanks)
+- [@VeeAndrade](https://github.com/VeeAndrade)
 
 ## Vulnerability disclosure
 
