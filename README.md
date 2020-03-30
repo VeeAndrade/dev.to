@@ -154,6 +154,7 @@ src="https://user-images.githubusercontent.com/50811220/77949317-44140b00-72b6-1
 
 **Backend**  
 - [@freeheeling](https://github.com/freeheeling)  
+
 **Frontend**  
 - [@pJanks](https://github.com/pJanks)
 - [@VeeAndrade](https://github.com/VeeAndrade)
